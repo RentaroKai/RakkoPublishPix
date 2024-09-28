@@ -1,3 +1,4 @@
+![スクショ](https://github.com/user-attachments/assets/3a82fd21-e9e5-4444-b4f6-2822b54a2258)
 # Rakko publishPix
 
 Rakko publishPixは、画像のリサイズと透かし追加を簡単に行えるPythonアプリケーションです。
