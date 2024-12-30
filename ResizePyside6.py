@@ -557,7 +557,10 @@ class ImageResizeTool(QMainWindow):
         name, ext = os.path.splitext(file_path)
         temp_path = name + "_temp" + ext
         resized = image.resize(new_size, Image.Resampling.LANCZOS)
-        resized.save(temp_path)
+        if ext.lower() == '.webp':
+            resized.save(temp_path, 'WEBP', quality=100)
+        else:
+            resized.save(temp_path)
         image.close()
         resized.close()
         return temp_path
@@ -569,7 +572,10 @@ class ImageResizeTool(QMainWindow):
         image.thumbnail((max_width, max_height), Image.Resampling.LANCZOS)
         name, ext = os.path.splitext(file_path)
         temp_path = name + "_temp" + ext
-        image.save(temp_path)
+        if ext.lower() == '.webp':
+            image.save(temp_path, 'WEBP', quality=100)
+        else:
+            image.save(temp_path)
         image.close()
         return temp_path
 
@@ -581,7 +587,10 @@ class ImageResizeTool(QMainWindow):
         resized = image.resize((new_width, pattern3_height), Image.Resampling.LANCZOS)
         name, ext = os.path.splitext(file_path)
         temp_path = name + "_temp" + ext
-        resized.save(temp_path)
+        if ext.lower() == '.webp':
+            resized.save(temp_path, 'WEBP', quality=100)
+        else:
+            resized.save(temp_path)
         image.close()
         resized.close()
         return temp_path
@@ -595,7 +604,10 @@ class ImageResizeTool(QMainWindow):
             resized = image.resize((max_w, new_height), Image.Resampling.LANCZOS)
             name, ext = os.path.splitext(file_path)
             temp_path = name + "_temp" + ext
-            resized.save(temp_path)
+            if ext.lower() == '.webp':
+                resized.save(temp_path, 'WEBP', quality=100)
+            else:
+                resized.save(temp_path)
             image.close()
             resized.close()
             return temp_path
@@ -710,7 +722,7 @@ class DropFrame(QWidget):
             for url in event.mimeData().urls():
                 file_path = url.toLocalFile()
                 self.parent_tool.log_message(f"Checking file: {file_path}")
-                if os.path.isfile(file_path) and file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
+                if os.path.isfile(file_path) and file_path.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
                     event.acceptProposedAction()
                     self.parent_tool.log_message("File accepted")
                     return
@@ -723,7 +735,7 @@ class DropFrame(QWidget):
         for url in urls:
             file_path = url.toLocalFile()
             self.parent_tool.log_message(f"Processing file: {file_path}")
-            if os.path.isfile(file_path) and file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
+            if os.path.isfile(file_path) and file_path.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
                 # 親ウィンドウの process_image を呼ぶ
                 self.parent_tool.process_image(file_path, self.func)
         event.acceptProposedAction()
